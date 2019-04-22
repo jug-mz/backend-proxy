@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/favicon.ico">
     <title>JUG Mainz</title>
-    <link href="/static/css/main.9562aba6.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -19,7 +18,11 @@
         <div class="columns">
             <div class="column left">
                 <div class="segment"><h2>Kommende Events</h2>
-                    <div id="upcoming"></div>
+                    <div id="upcoming">
+                        <ul id="upcoming-event-list" class="event-list">
+                            <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
+                        </ul>
+                    </div>
                 </div>
                 <div class="segment"><h2>Über uns</h2>Die JUG Mainz möchte eine Plattform für Java Entwickler im Raum
                     Mainz sein um sich über aktuelle Themen auszutauschen. Seit unserer Gründung im Jahr 2017
@@ -28,7 +31,11 @@
                     legen wir großen Wert.
                 </div>
                 <div class="segment"><h2>Vergangene Events</h2>
-                    <div id="past"></div>
+                    <div id="past">
+                        <ul id="past-event-list" class="event-list">
+                            <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="column right">
@@ -36,7 +43,9 @@
                     <div id="sponsors"></div>
                 </div>
                 <div class="segment twitter-container"><h2>Twitter</h2>
-                    <div id="twitter"></div>
+                    <div id="twitter">
+                        <a href="https://twitter.com/jug_mz">Besuche uns auf Twitter</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,6 +61,8 @@
         <footer>JUG Mainz, 2018</footer>
     </div>
 </div>
-<script type="text/javascript" src="/static/js/main.ea61fdd5.js"></script>
+<script src="static/js/mustache.min.js"></script>
+<script src="static/js/events.js"></script>
+<script src="static/js/moment-with-locales.js"></script>
 </body>
 </html>
