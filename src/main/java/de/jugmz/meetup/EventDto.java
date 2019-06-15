@@ -1,6 +1,4 @@
-package de.jugmz.frontend;
-
-import de.jugmz.meetup.MeetupEvent;
+package de.jugmz.meetup;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

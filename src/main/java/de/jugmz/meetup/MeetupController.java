@@ -1,10 +1,9 @@
-package de.jugmz;
+package de.jugmz.meetup;
 
-import de.jugmz.frontend.EventDto;
-import de.jugmz.meetup.MeetupClient;
-import de.jugmz.meetup.MeetupEvent;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,16 +15,20 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/api")
+@Path("/api/meetup")
 @ApplicationScoped
-public class BackendProxy {
+public class MeetupController {
 
-    private final MeetupClient client;
+    @ConfigProperty(name = "service.meetup.uri")
+    private URI meetupUri;
 
-    public BackendProxy() throws URISyntaxException {
+    private MeetupClient client;
+
+    @PostConstruct
+    public void initialize() throws URISyntaxException {
         this.client = RestClientBuilder
                 .newBuilder()
-                .baseUri(new URI("https://api.meetup.com"))
+                .baseUri(meetupUri)
                 .build(MeetupClient.class);
     }
 

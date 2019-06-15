@@ -133,18 +133,18 @@ ul.event-list li.single-event .hidden {
     display: none;
 }
 
-ul.sponsor-list {
+ul#sponsor-list {
     list-style-type: none;
     padding: 0;
     float: none;
     margin: 0 0 12px
 }
 
-ul.sponsor-list li.sponsor-panel {
-    margin: 0 0 12px
+ul#sponsor-list li.sponsor-panel {
+    margin: 0 0 12px;
 }
 
-ul.sponsor-list li.sponsor-panel img {
+ul#sponsor-list li.sponsor-panel img {
     margin-left: auto;
     margin-right: auto
 }
