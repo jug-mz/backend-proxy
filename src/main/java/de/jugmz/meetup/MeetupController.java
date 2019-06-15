@@ -4,19 +4,17 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/api/meetup")
-@ApplicationScoped
+@Produces(MediaType.APPLICATION_JSON)
 public class MeetupController {
 
     @ConfigProperty(name = "service.meetup.uri")
@@ -34,19 +32,15 @@ public class MeetupController {
 
     @GET
     @Path("/upcoming")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUpcoming() {
+    public List<EventDto> getUpcoming() {
         List<MeetupEvent> meetupEvents = client.getEvents("upcoming", false);
-        List<EventDto> responseEvents = meetupEvents.stream().map(EventDto::new).collect(Collectors.toList());
-        return Response.ok(responseEvents).build();
+        return meetupEvents.stream().map(EventDto::new).collect(Collectors.toList());
     }
 
     @GET
     @Path("/past")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response hello() {
+    public List<EventDto> hello() {
         List<MeetupEvent> meetupEvents = client.getEvents("past", true);
-        List<EventDto> responseEvents = meetupEvents.stream().map(EventDto::new).collect(Collectors.toList());
-        return Response.ok(responseEvents).build();
+        return meetupEvents.stream().map(EventDto::new).collect(Collectors.toList());
     }
 }
