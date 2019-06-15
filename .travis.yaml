@@ -1,0 +1,14 @@
+language: java
+jdk:
+  - openjdk8
+cache:
+  - $HOME/.m2
+env:
+  - GRAALVM_HOME=/opt/graalvm-ce-1.0.0-rc16
+install:
+  - cd /opt
+  - wget https://github.com/oracle/graal/releases/download/vm-1.0.0-rc16/graalvm-ce-1.0.0-rc16-linux-amd64.tar.gz
+  - tar -xzf graalvm-ce-1.0.0-rc16-linux-amd64.tar.gz
+  - cd $TRAVIS_BUILD_DIR
+script:
+  - mvn clean install -Pnative

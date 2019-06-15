@@ -1,2 +1,4 @@
 # backend-proxy
-A proxy, ensuring that the Users IP addresses are not exposed to other services, e.g. meetup.com
+[![Build Status](https://travis-ci.org/jug-mz/backend-proxy.svg?branch=master)](https://travis-ci.org/jug-mz/backend-proxy)
+
+The complete implementation for https://www.jug-mz.de, written with Quarkus
