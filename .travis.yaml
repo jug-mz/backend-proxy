@@ -12,3 +12,12 @@ install:
   - cd $TRAVIS_BUILD_DIR
 script:
   - mvn clean install -Pnative
+deploy:
+  provider: s3
+  access_key_id: $AWS_KEY
+  secret_access_key: $AWS_SECRET
+  bucket: "jug-mz-quarkus"
+  skip_cleanup: true
+  file: ./target/backend-proxy-1.0-SNAPSHOT-runner
+  on:
+    branch: master
