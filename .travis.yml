@@ -8,7 +8,7 @@ cache:
 env:
   - GRAALVM_HOME=/opt/graalvm-ce-1.0.0-rc16
 before_script:
-  - ./install-protobuf.sh
+  - ./install-graalvm.sh
 script:
   - mvn clean install -Pnative
 deploy:
