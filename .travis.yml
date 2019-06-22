@@ -2,7 +2,9 @@ language: java
 jdk:
   - openjdk8
 cache:
-  - $HOME/.m2
+  directories:
+    - $HOME/.m2
+    - /opt/graalvm-ce-1.0.0-rc16
 env:
   - GRAALVM_HOME=/opt/graalvm-ce-1.0.0-rc16
 before_script:
