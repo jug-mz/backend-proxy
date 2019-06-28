@@ -4,9 +4,9 @@ jdk:
 cache:
   directories:
     - $HOME/.m2
-    - /opt/graalvm-ce-1.0.0-rc16
+    - /opt/graalvm-ce-19.0.2
 env:
-  - GRAALVM_HOME=/opt/graalvm-ce-1.0.0-rc16
+  - GRAALVM_HOME=/opt/graalvm-ce-19.0.2
 before_script:
   - ./install-graalvm.sh
 script:
