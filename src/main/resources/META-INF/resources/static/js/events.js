@@ -2,7 +2,7 @@ const templateUpcoming =
     `
         <h3><a href="{{link}}">{{name}}</a></h3>
         <p class="venue">{{venue}}</p>
-        <p class="date_time">{{#localize}}{{eventDate}}{{/localize}}</p>
+        <p class="date_time">{{eventDate}}</p>
         <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
         <a id="show-{{id}}" href="#/" class="visible" onclick="showDetails(\'{{id}}\')">Details</a>
         <a id="hide-{{id}}" href="#/" class="hidden" onclick="hideDetails(\'{{id}}\')">Weniger</a>
@@ -13,15 +13,11 @@ const templatePast =
     `
         <h3><a href="{{link}}">{{name}}</a></h3>
         <p class="venue">{{venue}}</p>
-        <p class="date_time">{{#localize}}{{eventDate}}{{/localize}}</p>
+        <p class="date_time">{{eventDate}}</p>
         <a id="show-{{id}}" href="#/" class="visible" onclick="showDetails(\'{{id}}\')">Details</a>
         <a id="hide-{{id}}" href="#/" class="hidden" onclick="hideDetails(\'{{id}}\')">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div>
         `;
-
-const localizedRenderer = function () {
-    return (text, render) => moment(render(text)).locale("de").format('LLLL');
-}
 
 function showDetails(eventId) {
     document.getElementById('details-' + eventId).className = 'visible';
@@ -36,7 +32,6 @@ function hideDetails(eventId) {
 }
 
 function renderWithTemplate(event, template) {
-    event.localize = event.localize = localizedRenderer;
     let content = Mustache.render(template, event);
     let li = document.createElement('li');
     li.className = 'single-event'

@@ -1,12 +1,16 @@
 package de.jugmz.meetup;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Event class meant for the Frontend
  */
 public class EventDto implements Serializable {
+
+    private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
 
     public EventDto() {
 
@@ -18,7 +22,7 @@ public class EventDto implements Serializable {
         this.rsvpLimit = event.getRsvpLimit();
         this.openRsvp = event.getRsvpLimit() - event.getRsvpCount();
         this.status = event.getStatus();
-        this.eventDate = LocalDateTime.of(event.getLocalDate(), event.getLocalTime());
+        this.eventDate = formatEventDate(event);
         this.venue = event.getVenue().getName();
         this.link = event.getLink();
         this.details = event.getDescription();
@@ -34,7 +38,7 @@ public class EventDto implements Serializable {
 
     private String status;
 
-    private LocalDateTime eventDate;
+    private String eventDate;
 
     private String venue;
 
@@ -46,72 +50,42 @@ public class EventDto implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getRsvpLimit() {
         return rsvpLimit;
     }
 
-    public void setRsvpLimit(int rsvpLimit) {
-        this.rsvpLimit = rsvpLimit;
-    }
-
     public int getOpenRsvp() {
         return openRsvp;
-    }
-
-    public void setOpenRsvp(int openRsvp) {
-        this.openRsvp = openRsvp;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getEventDate() {
+    public String getEventDate() {
         return eventDate;
-    }
-
-    public void setEventDate(LocalDateTime eventDate) {
-        this.eventDate = eventDate;
     }
 
     public String getVenue() {
         return venue;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
     public String getLink() {
         return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public String getDetails() {
         return details;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    private String formatEventDate(MeetupEvent event) {
+        String dateString = event.getLocalDate().format(dateFormatter);
+        String timeString = event.getLocalTime().format(timeFormatter);
+        return String.format("%s, %s Uhr", dateString, timeString);
     }
 
     @Override
@@ -132,4 +106,5 @@ public class EventDto implements Serializable {
         result = 31 * result + (eventDate != null ? eventDate.hashCode() : 0);
         return result;
     }
+
 }
