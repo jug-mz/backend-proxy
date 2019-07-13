@@ -12,9 +12,9 @@ before_script:
 script:
   - mvn clean install -Pnative
   - mkdir target/dist
-  - cp backend-proxy-1.0-SNAPSHOT-runner target/dist/application
-  - cp $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
-  - cp $GRAALVM_HOME/jre/lib/security/cacerts target/dist/cacerts
+  - cp target/backend-proxy-1.0-SNAPSHOT-runner target/dist/application
+  - cp -R $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
+  - cp -R $GRAALVM_HOME/jre/lib/security/cacerts target/dist/cacerts
 deploy:
   provider: s3
   access_key_id: $AWS_KEY
