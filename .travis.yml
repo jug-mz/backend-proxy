@@ -14,7 +14,7 @@ script:
   - mkdir target/dist
   - cp target/backend-proxy-1.0-SNAPSHOT-runner target/dist/application
   - cp -R $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
-  - cp -R $GRAALVM_HOME/jre/lib/security/cacerts target/dist/cacerts
+  - cp $GRAALVM_HOME/jre/lib/security/cacerts target/dist/cacerts
 deploy:
   provider: s3
   access_key_id: $AWS_KEY
