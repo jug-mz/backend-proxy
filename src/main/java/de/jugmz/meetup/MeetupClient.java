@@ -7,7 +7,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.Map;
 
 @Path("/JUG-Mainz/events")
 public interface MeetupClient {
