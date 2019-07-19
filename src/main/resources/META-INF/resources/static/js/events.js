@@ -42,15 +42,24 @@ function renderWithTemplate(event, template) {
 const renderUpcoming = async () => {
     const response = await fetch('/api/meetup/upcoming');
     const upcomingEventsJson = await response.json();
-    let upcomingEvents = document.getElementById('upcoming-event-list');
-    upcomingEventsJson.forEach(element => upcomingEvents.appendChild(renderWithTemplate(element, templateUpcoming)));
+    if (upcomingEventsJson.length > 0) {
+        let upcomingEvents = document.getElementById('upcoming-event-list');
+        let noContentBanner = document.getElementById('no-upcoming');
+        upcomingEvents.removeChild(noContentBanner);
+        upcomingEventsJson.forEach(element => upcomingEvents.appendChild(renderWithTemplate(element, templateUpcoming)));
+    }
 }
 
 const renderPast = async () => {
     const response = await fetch('/api/meetup/past');
     const pastEventsJson = await response.json();
-    let pastEvents = document.getElementById('past-event-list');
-    pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templatePast)));
+    if(pastEventsJson.length > 0) {
+        let pastEvents = document.getElementById('past-event-list');
+        let noContentBanner = document.getElementById('no-past');
+        pastEvents.removeChild(noContentBanner);
+        pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templatePast)));
+    }
+
 }
 
 function renderSponsorItem(event) {
