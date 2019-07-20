@@ -4,8 +4,8 @@ const templateUpcoming =
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
         <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
-        <a id="show-{{id}}" href="#/" class="visible" onclick="showDetails(\'{{id}}\')">Details</a>
-        <a id="hide-{{id}}" href="#/" class="hidden" onclick="hideDetails(\'{{id}}\')">Weniger</a>
+        <a id="show-{{id}}" href="#/" class="visible">Details</a>
+        <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div> 
         `;
 
@@ -14,8 +14,8 @@ const templatePast =
         <h3><a href="{{link}}">{{name}}</a></h3>
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
-        <a id="show-{{id}}" href="#/" class="visible" onclick="showDetails(\'{{id}}\')">Details</a>
-        <a id="hide-{{id}}" href="#/" class="hidden" onclick="hideDetails(\'{{id}}\')">Weniger</a>
+        <a id="show-{{id}}" href="#/" class="visible">Details</a>
+        <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div>
         `;
 
@@ -48,16 +48,42 @@ const renderUpcoming = async () => {
         upcomingEvents.removeChild(noContentBanner);
         upcomingEventsJson.forEach(element => upcomingEvents.appendChild(renderWithTemplate(element, templateUpcoming)));
     }
+
+    for (let el of document.getElementsByClassName('visible')) {
+        el.addEventListener("click", function (event) {
+            let id = el.id.split("-")[1];
+            showDetails(id);
+        });
+    }
+    for (let el of document.getElementsByClassName('hidden')) {
+        el.addEventListener("click", function (event) {
+            let id = el.id.split("-")[1];
+            hideDetails(id);
+        });
+    }
 }
 
 const renderPast = async () => {
     const response = await fetch('/api/meetup/past');
     const pastEventsJson = await response.json();
-    if(pastEventsJson.length > 0) {
+    if (pastEventsJson.length > 0) {
         let pastEvents = document.getElementById('past-event-list');
         let noContentBanner = document.getElementById('no-past');
         pastEvents.removeChild(noContentBanner);
         pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templatePast)));
+    }
+
+    for (let el of document.getElementsByClassName('visible')) {
+        el.addEventListener("click", function (event) {
+            let id = el.id.split("-")[1];
+            showDetails(id);
+        });
+    }
+    for (let el of document.getElementsByClassName('hidden')) {
+        el.addEventListener("click", function (event) {
+            let id = el.id.split("-")[1];
+            hideDetails(id);
+        });
     }
 
 }
