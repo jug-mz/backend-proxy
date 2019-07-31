@@ -34,7 +34,8 @@ public class SponsorController {
         return Stream.of(
                 new SponsorDto("ilume", "ilum:e informatik ag", "https://www.ilume.de", "ilume.jpg"),
                 new SponsorDto("triona", "Triona GmbH", "https://www.triona.de", "triona.png"),
-                new SponsorDto("qaware", "QAware", "https://www.qaware.de", "qaware.svg"));
+                new SponsorDto("qaware", "QAware", "https://www.qaware.de", "qaware.svg"),
+                new SponsorDto("wjax", "WJAX", "https://www.jax.de", "wjax.jpg"));
     }
 
     private Comparator<SponsorDto> selectComparatorForParameter(String sortBy) {
