@@ -31,7 +31,7 @@ public class MeetupService {
                 .baseUri(meetupUri)
                 .build(MeetupClient.class);
 
-        this.upcomingCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> client.getEvents(MEETUP_STATUS_UPCOMING, true));
+        this.upcomingCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> client.getEvents(MEETUP_STATUS_UPCOMING, false));
         this.pastCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> client.getEvents(MEETUP_STATUS_PAST, true));
     }
 
