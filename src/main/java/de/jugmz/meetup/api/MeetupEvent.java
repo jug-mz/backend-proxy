@@ -1,4 +1,4 @@
-package de.jugmz.meetup;
+package de.jugmz.meetup.api;
 
 import javax.json.bind.annotation.JsonbProperty;
 import java.io.Serializable;
@@ -27,6 +27,9 @@ public class MeetupEvent implements Serializable {
 
     @JsonbProperty("venue")
     private MeetupEventVenue venue;
+
+    @JsonbProperty("group")
+    private MeetupGroup group;
 
     private String description;
 
@@ -110,5 +113,13 @@ public class MeetupEvent implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public MeetupGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(MeetupGroup group) {
+        this.group = group;
     }
 }

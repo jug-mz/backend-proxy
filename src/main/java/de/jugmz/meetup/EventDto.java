@@ -1,50 +1,33 @@
 package de.jugmz.meetup;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Event class meant for the Frontend
  */
 public class EventDto implements Serializable {
 
-    private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    long id;
 
+    String name;
 
-    public EventDto() {
+    int rsvpLimit;
 
-    }
+    int openRsvp;
 
-    public EventDto(MeetupEvent event) {
-        this.id = event.getId();
-        this.name = event.getName();
-        this.rsvpLimit = event.getRsvpLimit();
-        this.openRsvp = event.getRsvpLimit() - event.getRsvpCount();
-        this.status = event.getStatus();
-        this.eventDate = formatEventDate(event);
-        this.venue = event.getVenue().getName();
-        this.link = event.getLink();
-        this.details = event.getDescription();
-    }
+    String status;
 
-    private long id;
+    String eventDate;
 
-    private String name;
+    String venue;
 
-    private int rsvpLimit;
+    String link;
 
-    private int openRsvp;
+    String details;
 
-    private String status;
+    String eventGroupName;
 
-    private String eventDate;
-
-    private String venue;
-
-    private String link;
-
-    private String details;
+    boolean isPartnerEvent;
 
     public long getId() {
         return id;
@@ -82,10 +65,12 @@ public class EventDto implements Serializable {
         return details;
     }
 
-    private String formatEventDate(MeetupEvent event) {
-        String dateString = event.getLocalDate().format(dateFormatter);
-        String timeString = event.getLocalTime().format(timeFormatter);
-        return String.format("%s, %s Uhr", dateString, timeString);
+    public String getEventGroupName() {
+        return eventGroupName;
+    }
+
+    public boolean isPartnerEvent() {
+        return isPartnerEvent;
     }
 
     @Override

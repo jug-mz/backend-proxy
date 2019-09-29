@@ -12,24 +12,31 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class MeetupController {
 
+    private MeetupService meetupService;
+
+    private MeetupMapper meetupMapper;
+
     @Inject
-    MeetupService meetupService;
+    public MeetupController(MeetupService meetupService, MeetupMapper meetupMapper) {
+        this.meetupService = meetupService;
+        this.meetupMapper = meetupMapper;
+    }
 
     @GET
     @Path("/upcoming")
     public List<EventDto> getUpcoming() {
         return meetupService.getUpcoming()
                 .stream()
-                .map(EventDto::new)
+                .map(meetupMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GET
     @Path("/past")
-    public List<EventDto> hello() {
+    public List<EventDto> getPast() {
         return meetupService.getPast()
                 .stream()
-                .map(EventDto::new)
+                .map(meetupMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
