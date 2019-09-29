@@ -1,4 +1,4 @@
-package de.jugmz.sponsors;
+package de.jugmz.sponsor;
 
 import de.jugmz.general.comparators.NoOpComparator;
 import de.jugmz.general.comparators.RandomComparator;

@@ -1,9 +1,10 @@
-package de.jugmz.meetup;
+package de.jugmz.meetup.api;
 
 import javax.json.bind.annotation.JsonbProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 public class MeetupEvent implements Serializable {
 
@@ -12,10 +13,10 @@ public class MeetupEvent implements Serializable {
     private String name;
 
     @JsonbProperty("rsvp_limit")
-    private int rsvpLimit;
+    private Integer rsvpLimit;
 
     @JsonbProperty("yes_rsvp_count")
-    private int rsvpCount;
+    private Integer rsvpCount;
 
     private String status;
 
@@ -27,6 +28,9 @@ public class MeetupEvent implements Serializable {
 
     @JsonbProperty("venue")
     private MeetupEventVenue venue;
+
+    @JsonbProperty("group")
+    private MeetupGroup group;
 
     private String description;
 
@@ -48,11 +52,11 @@ public class MeetupEvent implements Serializable {
         this.name = name;
     }
 
-    public int getRsvpLimit() {
-        return rsvpLimit;
+    public Optional<Integer> getRsvpLimit() {
+        return Optional.ofNullable(rsvpLimit);
     }
 
-    public void setRsvpLimit(int rsvpLimit) {
+    public void setRsvpLimit(Integer rsvpLimit) {
         this.rsvpLimit = rsvpLimit;
     }
 
@@ -80,16 +84,16 @@ public class MeetupEvent implements Serializable {
         this.localTime = localTime;
     }
 
-    public int getRsvpCount() {
+    public Integer getRsvpCount() {
         return rsvpCount;
     }
 
-    public void setRsvpCount(int rsvpCount) {
+    public void setRsvpCount(Integer rsvpCount) {
         this.rsvpCount = rsvpCount;
     }
 
-    public MeetupEventVenue getVenue() {
-        return venue;
+    public Optional<MeetupEventVenue> getVenue() {
+        return Optional.ofNullable(venue);
     }
 
     public void setVenue(MeetupEventVenue venue) {
@@ -110,5 +114,13 @@ public class MeetupEvent implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public MeetupGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(MeetupGroup group) {
+        this.group = group;
     }
 }

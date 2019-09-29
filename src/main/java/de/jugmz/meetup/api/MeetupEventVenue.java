@@ -1,4 +1,4 @@
-package de.jugmz.meetup;
+package de.jugmz.meetup.api;
 
 import java.io.Serializable;
 

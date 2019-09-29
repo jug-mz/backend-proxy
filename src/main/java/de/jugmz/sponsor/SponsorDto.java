@@ -1,4 +1,4 @@
-package de.jugmz.sponsors;
+package de.jugmz.sponsor;
 
 public class SponsorDto {
 
