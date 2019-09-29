@@ -106,15 +106,33 @@ ul.event-list li.single-event {
     border: 1px solid #ddd;
     border-radius: 2px;
     margin: 0 0 12px;
-    padding: 12px
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
-ul.event-list li.single-event h3 {
-    color: #fff;
+ul.event-list li.single-event div.event-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 0 12px;
+}
+
+ul.event-list li.single-event div.event-header h3 {
     font-size: 1.3em;
     text-decoration: none;
-    margin: 0;
-    padding: 0
+    margin: 0 0 12px;
+}
+
+ul.event-list li.single-event div.event-header div.partner-banner {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0 0 12px;
+}
+
+ul.event-list li.single-event p {
+    margin: 0 0 12px;
 }
 
 ul.event-list li.single-event p.date_time:before {

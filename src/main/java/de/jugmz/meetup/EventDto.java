@@ -11,9 +11,9 @@ public class EventDto implements Serializable {
 
     String name;
 
-    int rsvpLimit;
+    Integer rsvpLimit;
 
-    int openRsvp;
+    Integer openRsvp;
 
     String status;
 
@@ -37,11 +37,11 @@ public class EventDto implements Serializable {
         return name;
     }
 
-    public int getRsvpLimit() {
+    public Integer getRsvpLimit() {
         return rsvpLimit;
     }
 
-    public int getOpenRsvp() {
+    public Integer getOpenRsvp() {
         return openRsvp;
     }
 

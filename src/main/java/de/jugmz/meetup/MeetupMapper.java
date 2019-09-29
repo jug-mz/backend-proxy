@@ -1,6 +1,7 @@
 package de.jugmz.meetup;
 
 import de.jugmz.meetup.api.MeetupEvent;
+import de.jugmz.meetup.api.MeetupEventVenue;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,10 +16,12 @@ public class MeetupMapper {
 
     private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    public static final String EMPTY_VENUE_STRING = "TBD";
 
     private String homeId;
 
-    public MeetupMapper() {}
+    public MeetupMapper() {
+    }
 
     @Inject
     public MeetupMapper(@ConfigProperty(name = "service.meetup.homeId") String homeId) {
@@ -31,11 +34,15 @@ public class MeetupMapper {
 
         dtoEvent.id = apiEvent.getId();
         dtoEvent.name = apiEvent.getName();
-        dtoEvent.rsvpLimit = apiEvent.getRsvpLimit();
-        dtoEvent.openRsvp = apiEvent.getRsvpLimit() - apiEvent.getRsvpCount();
+
+        if(apiEvent.getRsvpLimit().isPresent()) {
+            dtoEvent.rsvpLimit = apiEvent.getRsvpLimit().get();
+            dtoEvent.openRsvp = dtoEvent.rsvpLimit - apiEvent.getRsvpCount();
+        }
+
         dtoEvent.status = apiEvent.getStatus();
         dtoEvent.eventDate = formatEventDate(apiEvent);
-        dtoEvent.venue = apiEvent.getVenue().getName();
+        dtoEvent.venue = apiEvent.getVenue().map(MeetupEventVenue::getName).orElse(EMPTY_VENUE_STRING);
         dtoEvent.link = apiEvent.getLink();
         dtoEvent.details = apiEvent.getDescription();
         dtoEvent.eventGroupName = apiEvent.getGroup().getName();

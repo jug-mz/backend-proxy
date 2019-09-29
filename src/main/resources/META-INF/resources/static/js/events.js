@@ -1,17 +1,33 @@
-const templateUpcoming =
+const templateWithRsvp =
     `
-        <h3><a href="{{link}}">{{name}}</a></h3>
+        <div class="event-header">
+            {{#partnerEvent}}
+                <div class="partner-banner">Partner Event</div>
+            {{/partnerEvent}}   
+            <h3>
+                <a href="{{link}}">
+                    {{#partnerEvent}}{{eventGroupName}}: {{/partnerEvent}}{{name}} 
+                </a>
+            </h3>
+        </div>
+             
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
-        <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
+        {{#rsvpLimit}}
+            <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
+        {{/rsvpLimit}}
         <a id="show-{{id}}" href="#/" class="visible">Details</a>
         <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div> 
         `;
 
-const templatePast =
+const templateWithoutRsvp =
     `
-        <h3><a href="{{link}}">{{name}}</a></h3>
+         <div class="event-header">
+            <h3>
+                <a href="{{link}}">{{name}}</a>
+            </h3>
+        </div>
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
         <a id="show-{{id}}" href="#/" class="visible">Details</a>
@@ -32,9 +48,13 @@ function hideDetails(eventId) {
 }
 
 function renderWithTemplate(event, template) {
-    let content = Mustache.render(template, event);
+    const content = Mustache.render(template, event);
     let li = document.createElement('li');
-    li.className = 'single-event'
+    if(event.partnerEvent) {
+        li.className = 'single-event partner-event';
+    } else {
+        li.className = 'single-event';
+    }
     li.innerHTML = content;
     return li;
 }
@@ -46,7 +66,9 @@ const renderUpcoming = async () => {
         let upcomingEvents = document.getElementById('upcoming-event-list');
         let noContentBanner = document.getElementById('no-upcoming');
         upcomingEvents.removeChild(noContentBanner);
-        upcomingEventsJson.forEach(element => upcomingEvents.appendChild(renderWithTemplate(element, templateUpcoming)));
+        upcomingEventsJson.forEach(element => {
+            upcomingEvents.appendChild(renderWithTemplate(element, templateWithRsvp));
+        });
     }
 
     for (let el of document.getElementsByClassName('visible')) {
@@ -61,7 +83,7 @@ const renderUpcoming = async () => {
             hideDetails(id);
         });
     }
-}
+};
 
 const renderPast = async () => {
     const response = await fetch('/api/meetup/past');
@@ -70,7 +92,7 @@ const renderPast = async () => {
         let pastEvents = document.getElementById('past-event-list');
         let noContentBanner = document.getElementById('no-past');
         pastEvents.removeChild(noContentBanner);
-        pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templatePast)));
+        pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templateWithoutRsvp)));
     }
 
     for (let el of document.getElementsByClassName('visible')) {
@@ -86,18 +108,18 @@ const renderPast = async () => {
         });
     }
 
-}
+};
 
 function renderSponsorItem(event) {
-    let template =
+    const template =
         `
         <a href="{{url}}">
             <img src="img/sponsors/{{imgName}}" alt="{{name}}" width="167">
         </a>
-        `
+        `;
 
-    let content = Mustache.render(template, event);
-    let li = document.createElement('li');
+    const content = Mustache.render(template, event);
+    const li = document.createElement('li');
     li.className = 'sponsor-panel';
     li.innerHTML = content;
     return li;
@@ -106,9 +128,9 @@ function renderSponsorItem(event) {
 const renderSponsors = async () => {
     const response = await fetch('/api/sponsor?sortBy=random');
     const sponsorsJson = await response.json();
-    let sponsors = document.getElementById('sponsor-list');
+    const sponsors = document.getElementById('sponsor-list');
     sponsorsJson.forEach(element => sponsors.appendChild(renderSponsorItem(element)));
-}
+};
 
 renderUpcoming();
 renderPast();
