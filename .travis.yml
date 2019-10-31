@@ -10,7 +10,7 @@ env:
 before_script:
   - ./install-graalvm.sh
 script:
-  - mvn clean install -Pnative
+  - mvn clean install -Pnative -s src/test/resources/settings.xml
   - mkdir target/dist
   - cp target/backend-proxy-1.0-SNAPSHOT-runner target/dist/application
   - cp -R $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
