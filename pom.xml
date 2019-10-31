@@ -32,12 +32,6 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
 
-        <!-- We needed to add this, because we use servlet filter. If ommited, quarkus would use vert.x instead -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
