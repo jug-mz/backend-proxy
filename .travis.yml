@@ -9,8 +9,9 @@ env:
   - GRAALVM_HOME=/opt/graalvm-ce-19.2.1
 before_script:
   - ./install-graalvm.sh
+install:
+  - mvn -s settings.xml -q clean package -Pnative -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn clean install -Pnative -s src/test/resources/settings.xml
   - mkdir target/dist
   - cp target/backend-proxy-1.0-SNAPSHOT-runner target/dist/application
   - cp -R $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
