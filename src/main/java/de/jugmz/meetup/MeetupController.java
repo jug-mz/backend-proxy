@@ -1,5 +1,7 @@
 package de.jugmz.meetup;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -24,6 +26,7 @@ public class MeetupController {
 
     @GET
     @Path("/upcoming")
+    @Counted(name = "serviceCallsUpcoming")
     public List<EventDto> getUpcoming() {
         return meetupService.getUpcoming()
                 .stream()
@@ -33,6 +36,7 @@ public class MeetupController {
 
     @GET
     @Path("/past")
+    @Counted(name = "serviceCallsPast")
     public List<EventDto> getPast() {
         return meetupService.getPast()
                 .stream()

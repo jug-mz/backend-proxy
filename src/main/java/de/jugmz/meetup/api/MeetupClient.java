@@ -1,5 +1,7 @@
 package de.jugmz.meetup.api;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,11 +16,7 @@ public interface MeetupClient {
     @GET
     @Path("/{meetupId}/events")
     @Produces(MediaType.APPLICATION_JSON)
+    @Counted(name = "meetupCallsEvents")
     List<MeetupEvent> getEvents(@PathParam("meetupId") String meetupId, @QueryParam("status") String status, @QueryParam("desc") boolean desc);
-
-    @GET
-    @Path("/{meetupId}/events/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    MeetupEvent getEvent(@PathParam("meetupId") String meetupId, @PathParam("id") String id, @QueryParam("desc") boolean desc);
 
 }
