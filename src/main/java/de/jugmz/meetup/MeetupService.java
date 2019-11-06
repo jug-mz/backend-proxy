@@ -4,7 +4,6 @@ import de.jugmz.SimplestCache;
 import de.jugmz.meetup.api.MeetupClient;
 import de.jugmz.meetup.api.MeetupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import javax.annotation.PostConstruct;
