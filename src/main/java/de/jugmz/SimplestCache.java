@@ -1,5 +1,7 @@
 package de.jugmz;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Supplier;
