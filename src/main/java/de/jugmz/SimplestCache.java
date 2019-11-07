@@ -1,8 +1,11 @@
 package de.jugmz;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The simplest possible cache mechanism. Works as a cache wrapper around the provided supplier.
@@ -10,6 +13,8 @@ import java.util.function.Supplier;
  * @param <T> The value to be cached
  */
 public class SimplestCache<T extends List> {
+
+    Logger LOGGER = Logger.getLogger(SimplestCache.class.getName());
 
     private final int cacheDuration;
     private final Supplier<T> supplier;
@@ -36,9 +41,21 @@ public class SimplestCache<T extends List> {
      */
     public synchronized T loadOrGet() {
         if (isInvalid()) {
-            content = this.supplier.get();
-            lastUpdate = LocalDateTime.now();
+            return serveFromSupplier();
+        } else {
+            return getCached();
         }
+    }
+
+    private T serveFromSupplier() {
+        LOGGER.log(Level.INFO, "Serving Request from Supplier");
+        content = this.supplier.get();
+        lastUpdate = LocalDateTime.now();
+        return content;
+    }
+
+    public T getCached() {
+        LOGGER.log(Level.INFO, "Serving Request from Cache");
         return content;
     }
 

@@ -10,11 +10,13 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -49,6 +51,8 @@ public class MeetupService {
         this.client = RestClientBuilder
                 .newBuilder()
                 .baseUri(meetupUri)
+                .readTimeout(1000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(1000L, TimeUnit.MILLISECONDS)
                 .build(MeetupClient.class);
 
         this.upcomingCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> this.requestAllUpcomingEvents(homeId, partnerIds));
@@ -59,8 +63,18 @@ public class MeetupService {
         return upcomingCache.loadOrGet();
     }
 
+    public List<MeetupEvent> getUpcomingFromCache() {
+        List<MeetupEvent> cachedEvents = upcomingCache.getCached();
+        return (cachedEvents == null) ? new ArrayList<>() : cachedEvents;
+    }
+
     public List<MeetupEvent> getPast() {
         return pastCache.loadOrGet();
+    }
+
+    public List<MeetupEvent> getPastFromCache() {
+        List<MeetupEvent> cachedEvents = pastCache.getCached();
+        return (cachedEvents == null) ? new ArrayList<>() : cachedEvents;
     }
 
 

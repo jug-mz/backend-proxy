@@ -14,8 +14,14 @@ const templateWithRsvp =
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
         {{#rsvpLimit}}
-            <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
+            {{#eventFull}}
+                <p class="rsvp">Event ausgebucht, trag dich auf der Warteliste ein!</p>
+            {{/eventFull}}
+            {{^eventFull}}
+                <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
+            {{/eventFull}}
         {{/rsvpLimit}}
+
         <a id="show-{{id}}" href="#/" class="visible">Details</a>
         <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div> 
@@ -67,6 +73,9 @@ const renderUpcoming = async () => {
         let noContentBanner = document.getElementById('no-upcoming');
         upcomingEvents.removeChild(noContentBanner);
         upcomingEventsJson.forEach(element => {
+            if(element.openRsvp < 1) {
+                element.eventFull = true;
+            }
             upcomingEvents.appendChild(renderWithTemplate(element, templateWithRsvp));
         });
     }
