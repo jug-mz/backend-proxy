@@ -55,6 +55,15 @@ public class MeetupService {
         this.pastCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> client.getEvents(homeId, MEETUP_STATUS_PAST, true));
     }
 
+    public List<MeetupEvent> getUpcoming() {
+        return upcomingCache.loadOrGet();
+    }
+
+    public List<MeetupEvent> getPast() {
+        return pastCache.loadOrGet();
+    }
+
+
     private List<MeetupEvent> requestAllUpcomingEvents(String homeId, String[] partnerIds) {
         String[] allIds = appendToArray(homeId, partnerIds);
 
@@ -74,14 +83,6 @@ public class MeetupService {
         String[] allIds = Arrays.copyOf(sourceArray, partnerCount + 1);
         allIds[partnerCount] = newElement;
         return allIds;
-    }
-
-    public List<MeetupEvent> getUpcoming() {
-        return upcomingCache.loadOrGet();
-    }
-
-    public List<MeetupEvent> getPast() {
-        return pastCache.loadOrGet();
     }
 
 }
