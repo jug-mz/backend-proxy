@@ -7,7 +7,7 @@ cache:
     - /opt/graalvm-ce-19.2.1
 env:
   - GRAALVM_HOME=/opt/graalvm-ce-19.2.1
-before_script:
+before_install:
   - ./install-graalvm.sh
 install:
   - mvn -s settings.xml -q clean package -Pnative -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V
