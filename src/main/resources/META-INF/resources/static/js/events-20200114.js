@@ -134,6 +134,21 @@ function renderSponsorItem(event) {
     return li;
 }
 
+function renderPartnerItem(event) {
+    const template =
+        `
+        <a href="{{url}}">
+            <img src="img/partners/{{imgName}}" alt="{{name}}" width="167">
+        </a>
+        `;
+
+    const content = Mustache.render(template, event);
+    const li = document.createElement('li');
+    li.className = 'partner-panel';
+    li.innerHTML = content;
+    return li;
+}
+
 const renderSponsors = async () => {
     const response = await fetch('/api/sponsor?sortBy=random');
     const sponsorsJson = await response.json();
@@ -141,6 +156,14 @@ const renderSponsors = async () => {
     sponsorsJson.forEach(element => sponsors.appendChild(renderSponsorItem(element)));
 };
 
+const renderPartners = async () => {
+    const response = await fetch('/api/partner?sortBy=random');
+    const partnersJson = await response.json();
+    const partners = document.getElementById('partner-list');
+    partnersJson.forEach(element => partners.appendChild(renderPartnerItem(element)));
+};
+
 renderUpcoming();
 renderPast();
 renderSponsors();
+renderPartners();

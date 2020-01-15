@@ -167,6 +167,22 @@ ul#sponsor-list li.sponsor-panel img {
     margin-right: auto
 }
 
+ul#partner-list {
+    list-style-type: none;
+    padding: 0;
+    float: none;
+    margin: 0 0 12px
+}
+
+ul#partner-list li.partner-panel {
+    margin: 0 0 12px;
+}
+
+ul#partner-list li.partner-panel img {
+    margin-left: auto;
+    margin-right: auto
+}
+
 div.twitter-container {
     float: none
 }
