@@ -23,6 +23,8 @@ public class EventDto implements Serializable {
 
     String link;
 
+    String iCalLink;
+
     String details;
 
     String eventGroupName;
@@ -60,6 +62,8 @@ public class EventDto implements Serializable {
     public String getLink() {
         return link;
     }
+
+    public String getiCalLink() { return iCalLink; }
 
     public String getDetails() {
         return details;

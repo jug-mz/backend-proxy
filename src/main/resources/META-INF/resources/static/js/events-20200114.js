@@ -21,7 +21,8 @@ const templateWithRsvp =
                 <p class="rsvp">Noch {{openRsvp}} von {{rsvpLimit}} Plätzen frei!</p>
             {{/eventFull}}
         {{/rsvpLimit}}
-
+    
+        <p><a id="ical-link" href="{{iCalLink}}">Zum Kalender hinzufügen</a></p>
         <a id="show-{{id}}" href="#/" class="visible">Details</a>
         <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
         <div id="details-{{id}}" class="hidden">{{{details}}}</div> 
