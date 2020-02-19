@@ -6,6 +6,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -44,6 +47,7 @@ public class MeetupMapper {
         dtoEvent.eventDate = formatEventDate(apiEvent);
         dtoEvent.venue = apiEvent.getVenue().map(MeetupEventVenue::getName).orElse(EMPTY_VENUE_STRING);
         dtoEvent.link = apiEvent.getLink();
+        dtoEvent.iCalLink = createICalLink(apiEvent.getName(), apiEvent.getLink());
         dtoEvent.details = apiEvent.getDescription();
         dtoEvent.eventGroupName = apiEvent.getGroup().getName();
         dtoEvent.isPartnerEvent = isPartnerEvent(apiEvent);
@@ -51,6 +55,15 @@ public class MeetupMapper {
         return dtoEvent;
     }
 
+    private String createICalLink(String eventName, String eventLink) {
+        String iCalLink = "";
+        try {
+            iCalLink = eventLink + "ical/" + URLEncoder.encode(eventName, StandardCharsets.UTF_8.toString()) + ".ics";
+        } catch (UnsupportedEncodingException e) {
+            // All we can do here is hope that UTF-8 is supported
+        }
+        return iCalLink;
+    }
 
     private String formatEventDate(MeetupEvent event) {
         String dateString = event.getLocalDate().format(DATE_FORMATTER);
