@@ -16,6 +16,48 @@
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background-color: black !important;
+        color: white !important;
+    }
+
+
+    header, footer, header #header-bar {
+        background-color: #a81329 !important;
+    }
+
+    a {
+        color: #f83c53 !important;
+    }
+
+    .event {
+        background-color: #1C1C1E;
+    }
+
+    .event, .event>details {
+        border-color: #444 !important;
+    }
+
+    .partner-badge>small {
+        background-color: #3A3A3C !important;
+    }
+
+    aside li {
+        background-color: white;
+        border-radius: 8px;
+        padding: 6px;
+    }
+
+    ul#sponsor-list a, ul#partner-list a {
+        display: flex;
+        justify-content: center;
+        line-height: .5;
+    }
+
+
+}
+
 html {
     background-color: #FFF;
     height: 100%;
