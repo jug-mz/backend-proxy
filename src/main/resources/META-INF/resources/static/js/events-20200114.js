@@ -1,18 +1,21 @@
-const templateWithRsvp =
-    `
-        <div class="event-header">
-            {{#partnerEvent}}
-                <div class="partner-banner">Partner Event</div>
-            {{/partnerEvent}}   
+const templateWithRsvp = `
+        {{#partnerEvent}}
+            <span class="partner-badge">
+                <small>Partner Event</small>
+            </span>
+        {{/partnerEvent}}   
+        <hgroup class="event-header">
+            <p>{{eventDate}} | {{venue}}</p>
             <h3>
-                <a href="{{link}}">
-                    {{#partnerEvent}}{{eventGroupName}}: {{/partnerEvent}}{{name}} 
-                </a>
+                {{#partnerEvent}}«{{eventGroupName}}» {{/partnerEvent}}{{name}} 
             </h3>
-        </div>
+        </hgroup>
+        
+        
+        <p>
+           <a href="{{link}}" target="_blank">Teilnehmen (Meetup.com)</a>
+        </p>
              
-        <p class="venue">{{venue}}</p>
-        <p class="date_time">{{eventDate}}</p>
         {{#rsvpLimit}}
             {{#eventFull}}
                 <p class="rsvp">Event ausgebucht, trag dich auf der Warteliste ein!</p>
@@ -22,40 +25,40 @@ const templateWithRsvp =
             {{/eventFull}}
         {{/rsvpLimit}}
     
-        <p><a id="ical-link" href="{{iCalLink}}">Zum Kalender hinzufügen</a></p>
+        <p><a id="ical-link" href="{{iCalLink}}">Termin speichern</a></p>
         <details>
             <summary>Details</summary>
             <div>
             {{{details}}}
             </div>
         </details>
-        `;
+`;
 
-const templateWithoutRsvp =
-    `
-         <div class="event-header">
-            <h3>
-                <a href="{{link}}">{{name}}</a>
-            </h3>
+const templateWithoutRsvp = `
+     <hgroup>
+        <p>{{eventDate}} | {{venue}}</p>
+        <h3>{{name}}</h3>
+    </hgroup>
+    
+    <p>
+       <a href="{{link}}" target="_blank">Event auf Meetup.com</a>
+    </p>
+    
+    <details>
+        <summary>Details</summary>
+        <div>
+        {{{details}}}
         </div>
-        <p class="venue">{{venue}}</p>
-        <p class="date_time">{{eventDate}}</p>
-        <details>
-            <summary>Details</summary>
-            <div>
-            {{{details}}}
-            </div>
-        </details>
-        `;
+    </details>`;
 
 
 function renderWithTemplate(event, template) {
     const content = Mustache.render(template, event);
     let li = document.createElement('li');
-    if(event.partnerEvent) {
-        li.className = 'single-event partner-event';
+    if (event.partnerEvent) {
+        li.className = 'event partner-event';
     } else {
-        li.className = 'single-event';
+        li.className = 'event';
     }
     li.innerHTML = content;
     return li;
@@ -69,25 +72,12 @@ const renderUpcoming = async () => {
         let noContentBanner = document.getElementById('no-upcoming');
         upcomingEvents.removeChild(noContentBanner);
         upcomingEventsJson.forEach(element => {
-            if(element.openRsvp < 1) {
+            if (element.openRsvp < 1) {
                 element.eventFull = true;
             }
             upcomingEvents.appendChild(renderWithTemplate(element, templateWithRsvp));
         });
     }
-
-    // for (let el of document.getElementsByClassName('visible')) {
-    //     el.addEventListener("click", function (event) {
-    //         let id = el.id.split("-")[1];
-    //         showDetails(id);
-    //     });
-    // }
-    // for (let el of document.getElementsByClassName('hidden')) {
-    //     el.addEventListener("click", function (event) {
-    //         let id = el.id.split("-")[1];
-    //         hideDetails(id);
-    //     });
-    // }
 };
 
 const renderPast = async () => {
@@ -99,20 +89,6 @@ const renderPast = async () => {
         pastEvents.removeChild(noContentBanner);
         pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templateWithoutRsvp)));
     }
-
-    // for (let el of document.getElementsByClassName('visible')) {
-    //     el.addEventListener("click", function (event) {
-    //         let id = el.id.split("-")[1];
-    //         showDetails(id);
-    //     });
-    // }
-    // for (let el of document.getElementsByClassName('hidden')) {
-    //     el.addEventListener("click", function (event) {
-    //         let id = el.id.split("-")[1];
-    //         hideDetails(id);
-    //     });
-    // }
-
 };
 
 function renderSponsorItem(event) {

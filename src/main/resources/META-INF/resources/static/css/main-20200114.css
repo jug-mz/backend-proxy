@@ -1,6 +1,12 @@
 @font-face {
     font-family: 'Raleway';
-    src: url('../js/raleway.woff2');
+    src: url('../fonts/raleway.woff2');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-weight: 500;
+    src: url('../fonts/raleway-semibold.woff2');
 }
 
 @media screen and (max-width: 600px) {
@@ -10,19 +16,55 @@
     }
 }
 
+html {
+    background-color: #FFF;
+    height: 100%;
+}
+
 body {
     background-color: #fff;
     color: #000;
     font-family: Raleway, sans-serif;
+    line-height: 1.5;
+    font-size: 17px;
     margin: 0;
     padding: 0
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin-top: 1.2em;
+    margin-bottom: 0;
+}
+
+section {
+    margin-top: 1.5em;
+}
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child, section:first-child {
+    margin-top: 0;
+}
+
+p {
+    margin-top: .5em;
+    margin-bottom: 0;
+}
+
+hgroup > *:first-child {
+    margin: 0 !important;
+}
+
+hgroup > *:last-child {
+    margin-top: 0;
 }
 
 /* base layout */
 
 header {
-    overflow: hidden;
-    width: 100%
+    /*overflow: hidden;*/
+    width: 100%;
+    background-color: #e20020;
+    margin-bottom: 32px;
 }
 
 header img#logo {
@@ -32,7 +74,14 @@ header img#logo {
     position: relative
 }
 
-header div#header-bar {
+#logo-evil {
+    height: 100px;
+    float: right;
+    margin: 12px;
+    position: relative
+}
+
+header #header-bar {
     background-color: #e20020;
     min-height: 75px
 }
@@ -40,6 +89,7 @@ header div#header-bar {
 header h1 {
     color: #fff;
     margin: 0;
+    font-weight: 600;
     padding: 12px 0 0
 }
 
@@ -53,12 +103,13 @@ main {
     max-width: 60ch;
 }
 
-div.container {
+.container {
     display: flex;
     flex-wrap: wrap;
     /*max-width: 1000px;*/
-    gap: 16px;
+    gap: 24px;
     justify-content: center;
+    margin: 0 12px;
 }
 
 footer {
@@ -66,9 +117,15 @@ footer {
     color: #fff;
     min-height: 50px;
     overflow: hidden;
-    padding-top: 12px;
-    text-align: center;
-    width: 100%
+    padding: 32px 12px;
+    /*width: 100%;*/
+    margin-top: 24px;
+    font-size: 15px;
+}
+
+footer>div, header>div {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 /* elements */
@@ -76,66 +133,50 @@ footer {
 a {
     font-weight: 700;
     color: #e20020;
-    text-decoration: none
 }
 
-a.see-more-events {
-    margin-top: 12px;
-    display: block
-}
-
-ul.event-list {
+.event-list {
     list-style-type: none;
-    margin: 0;
-    padding: 0
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 4px 0 0;
 }
 
-ul.event-list li.single-event {
+.event {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
     border: 1px solid #ddd;
-    border-radius: 2px;
-    margin: 0 0 12px;
+    border-radius: 6px;
     padding: 12px;
-    display: flex;
-    flex-direction: column;
 }
 
-ul.event-list li.single-event div.event-header {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 0 0 12px;
+.event > * {
+    margin: 0;
 }
 
-ul.event-list li.single-event div.event-header h3 {
-    font-size: 1.3em;
-    text-decoration: none;
-    margin: 0 0 12px;
+.partner-badge > small {
+    background: #ddd;
+    padding: 2px 8px;
+    border-radius: 999px;
 }
 
-ul.event-list li.single-event div.event-header div.partner-banner {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 0 0 12px;
-}
-
-ul.event-list li.single-event p {
-    margin: 0 0 12px;
-}
-
-ul.event-list li.single-event p.date_time:before {
+ul.event-list li.event p.date_time:before {
     content: "\23F0   "
 }
 
-ul.event-list li.single-event p.venue:before {
+ul.event-list li.event p.venue:before {
     content: "\1F3E2   "
 }
 
-ul.event-list li.single-event:last-of-type {
+ul.event-list li.event:last-of-type {
     margin: 0
 }
 
-ul.event-list li.single-event .hidden {
+ul.event-list li.event .hidden {
     display: none;
 }
 
@@ -175,6 +216,15 @@ div.twitter-container {
     float: none
 }
 
+details > *:nth-child(2) {
+    margin-top: 12px;
+}
+
+.event > details {
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+}
+
 summary {
-    margin-bottom: 12px;
+    cursor: default;
 }
