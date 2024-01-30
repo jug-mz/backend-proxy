@@ -32,8 +32,8 @@ public class PartnerController {
 
     private Stream<PartnerDto> buildSponsors() {
         return Stream.of(
-                new PartnerDto("jax", "JAX", "https://www.jax.de", "javaland.jpg"),
-                new PartnerDto("javaland", "JavaLand 2020", "https://www.javaland.eu/de/home/", "jax.jpg"));
+                new PartnerDto("jax", "JAX", "https://www.jax.de", "jax.jpg"),
+                new PartnerDto("javaland", "JavaLand 2020", "https://www.javaland.eu/de/home/", "javaland.png"));
     }
 
     private Comparator<PartnerDto> selectComparatorForParameter(String sortBy) {
