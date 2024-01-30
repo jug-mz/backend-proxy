@@ -23,9 +23,12 @@ const templateWithRsvp =
         {{/rsvpLimit}}
     
         <p><a id="ical-link" href="{{iCalLink}}">Zum Kalender hinzufügen</a></p>
-        <a id="show-{{id}}" href="#/" class="visible">Details</a>
-        <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
-        <div id="details-{{id}}" class="hidden">{{{details}}}</div> 
+        <details>
+            <summary>Details</summary>
+            <div>
+            {{{details}}}
+            </div>
+        </details>
         `;
 
 const templateWithoutRsvp =
@@ -37,22 +40,14 @@ const templateWithoutRsvp =
         </div>
         <p class="venue">{{venue}}</p>
         <p class="date_time">{{eventDate}}</p>
-        <a id="show-{{id}}" href="#/" class="visible">Details</a>
-        <a id="hide-{{id}}" href="#/" class="hidden">Weniger</a>
-        <div id="details-{{id}}" class="hidden">{{{details}}}</div>
+        <details>
+            <summary>Details</summary>
+            <div>
+            {{{details}}}
+            </div>
+        </details>
         `;
 
-function showDetails(eventId) {
-    document.getElementById('details-' + eventId).className = 'visible';
-    document.getElementById('hide-' + eventId).className = 'visible';
-    document.getElementById('show-' + eventId).className = 'hidden';
-}
-
-function hideDetails(eventId) {
-    document.getElementById('details-' + eventId).className = 'hidden';
-    document.getElementById('hide-' + eventId).className = 'hidden';
-    document.getElementById('show-' + eventId).className = 'visible';
-}
 
 function renderWithTemplate(event, template) {
     const content = Mustache.render(template, event);
@@ -81,18 +76,18 @@ const renderUpcoming = async () => {
         });
     }
 
-    for (let el of document.getElementsByClassName('visible')) {
-        el.addEventListener("click", function (event) {
-            let id = el.id.split("-")[1];
-            showDetails(id);
-        });
-    }
-    for (let el of document.getElementsByClassName('hidden')) {
-        el.addEventListener("click", function (event) {
-            let id = el.id.split("-")[1];
-            hideDetails(id);
-        });
-    }
+    // for (let el of document.getElementsByClassName('visible')) {
+    //     el.addEventListener("click", function (event) {
+    //         let id = el.id.split("-")[1];
+    //         showDetails(id);
+    //     });
+    // }
+    // for (let el of document.getElementsByClassName('hidden')) {
+    //     el.addEventListener("click", function (event) {
+    //         let id = el.id.split("-")[1];
+    //         hideDetails(id);
+    //     });
+    // }
 };
 
 const renderPast = async () => {
@@ -105,18 +100,18 @@ const renderPast = async () => {
         pastEventsJson.forEach(element => pastEvents.appendChild(renderWithTemplate(element, templateWithoutRsvp)));
     }
 
-    for (let el of document.getElementsByClassName('visible')) {
-        el.addEventListener("click", function (event) {
-            let id = el.id.split("-")[1];
-            showDetails(id);
-        });
-    }
-    for (let el of document.getElementsByClassName('hidden')) {
-        el.addEventListener("click", function (event) {
-            let id = el.id.split("-")[1];
-            hideDetails(id);
-        });
-    }
+    // for (let el of document.getElementsByClassName('visible')) {
+    //     el.addEventListener("click", function (event) {
+    //         let id = el.id.split("-")[1];
+    //         showDetails(id);
+    //     });
+    // }
+    // for (let el of document.getElementsByClassName('hidden')) {
+    //     el.addEventListener("click", function (event) {
+    //         let id = el.id.split("-")[1];
+    //         hideDetails(id);
+    //     });
+    // }
 
 };
 

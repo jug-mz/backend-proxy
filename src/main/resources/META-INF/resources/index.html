@@ -10,76 +10,76 @@
     <link href="/static/css/main-20200114.css" rel="stylesheet">
 </head>
 <body>
-<div id="app">
-    <div class="app">
-        <header><img id="logo" alt="JUG Mainz Duke Maskottchen" src="img/duke.svg">
-            <div id="header-bar"><h1>JUG Mainz</h1>
-                <h2>Eine Community für Java Entwickler in Mainz</h2>
-            </div>
-        </header>
-        <div class="columns">
-            <div class="column left">
-                <div class="segment"><h2>Kommende Events</h2>
-                    <div id="upcoming">
-                        <ul id="upcoming-event-list" class="event-list">
-                            <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
-                            <div id="no-upcoming">Unser nächster Termin ist noch nicht angekündigt, das ändern wir bald 😊</div>
-                        </ul>
-                    </div>
-                </div>
-                <div class="segment"><h2>Über uns</h2>Die JUG Mainz möchte eine Plattform für Java Entwickler im Raum
-                    Mainz sein um sich über aktuelle Themen auszutauschen. Seit unserer Gründung im Jahr 2017
-                    organisiert unsere Community Vorträge zum Thema Java und Softwareentwickung an sich. An diesen
-                    Terminen steht nicht nur der fachliche Austausch im Vordergrund, auch auf das soziale Miteinander
-                    legen wir großen Wert.
-                </div>
-                <div class="segment"><h2>Vergangene Events</h2>
-                    <div id="past">
-                        <ul id="past-event-list" class="event-list">
-                            <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
-                            <div id="no-past">Keine Events vorhanden</div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="column right">
-                <div class="segment"><h2>Sponsoren</h2>
-                    <div id="sponsors">
-                        <ul id="sponsor-list">
 
-                        </ul>
-                    </div>
-                </div>
-                <div class="segment"><h2>Partner</h2>
-                    <div id="partners">
-                        <ul id="partner-list">
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="segment twitter-container"><h2>Twitter</h2>
-                    <div id="twitter">
-                        <a href="https://twitter.com/jug_mz">Besuche uns auf Twitter</a>
-                    </div>
-                </div>
-                <div class="segment github-container"><h2>Github</h2>
-                    <a href="https://github.com/jug-mz/backend-proxy">Entwickelt mit Quarkus, schau dir den Code an</a>
-                </div>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column">
-                <div class="segment"><h2>Impressum</h2>
-                    <p>JUG Mainz<br/>Mikhail Golubev<br/>Kakteenweg 1F<br/>55126 Mainz</p>
-                    <p>Telefon: +49 157 86 777 483<br/>E-Mail: mail@mikhail-golubev.de</p>
-                    <p>Inhaltlich Verantwortlicher gem. § 55 II RStV: Mikhail Golubev (Anschrift s.o.)</p>
-                    <p>Ich bin Mitglied des iJUG – Interessenverbund der Java User Groups e.V. (www.ijug.eu)</p></div>
-            </div>
-        </div>
-        <footer>JUG Mainz, 2021</footer>
+<header>
+    <img id="logo" alt="JUG Mainz Duke Maskottchen" src="img/duke.svg">
+    <div id="header-bar"><h1>JUG Mainz</h1>
+        <h2>Eine Community für Java Entwickler:innen in Mainz</h2>
     </div>
-</div>
-<script src="static/js/mustache.min.js"></script>
-<script src="static/js/events-20200114.js"></script>
+</header>
+
+<div class="container">
+    <main>
+        <h2>Kommende Events</h2>
+        <div id="upcoming">
+            <ul id="upcoming-event-list" class="event-list">
+                <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
+                <li id="no-upcoming">
+                    Unser nächster Termin ist noch nicht angekündigt, das ändern wir bald 😊
+                </li>
+            </ul>
+        </div>
+        <section>
+            <h2>Über uns</h2>
+            <p>
+                Die JUG Mainz möchte eine Plattform für Java Entwickler im Raum
+                Mainz sein um sich über aktuelle Themen auszutauschen. Seit unserer Gründung im Jahr 2017
+                organisiert unsere Community Vorträge zum Thema Java und Softwareentwickung an sich. An diesen
+                Terminen steht nicht nur der fachliche Austausch im Vordergrund, auch auf das soziale Miteinander
+                legen wir großen Wert.
+            </p>
+        </section>
+        <section>
+            <h2>Vergangene Events</h2>
+            <div id="past">
+                <ul id="past-event-list" class="event-list">
+                    <noscript>Für die Eventanzeige wird Javascript benötigt</noscript>
+                    <div id="no-past">Keine Events vorhanden</div>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <aside>
+        <section>
+            <h2>Sponsoren</h2>
+            <ul id="sponsor-list">
+
+            </ul>
+        </section>
+        <section>
+            <h2>Partner</h2>
+            <ul id="partner-list">
+
+            </ul>
+        </section>
+        <div class="segment twitter-container"><h2>Twitter</h2>
+            <div id="twitter">
+                <a href="https://twitter.com/jug_mz">Besuche uns auf Twitter</a>
+            </div>
+        </div>
+        <div class="segment github-container"><h2>Github</h2>
+            <a href="https://github.com/jug-mz/backend-proxy">Entwickelt mit Quarkus, <br> Schau dir den Code an</a>
+        </div>
+    </aside>
+    </div>
+    <footer>
+        <h2>Impressum</h2>
+        <p>JUG Mainz<br/>Mikhail Golubev<br/>Kakteenweg 1F<br/>55126 Mainz</p>
+        <p>Telefon: +49 157 86 777 483<br/>E-Mail: mail@mikhail-golubev.de</p>
+        <p>Inhaltlich Verantwortlicher gem. § 55 II RStV: Mikhail Golubev (Anschrift s.o.)</p>
+        <p>Ich bin Mitglied des iJUG – Interessenverbund der Java User Groups e.V. (www.ijug.eu)</p>
+    </footer>
+    <script src="static/js/mustache.min.js"></script>
+    <script src="static/js/events-20200114.js"></script>
 </body>
 </html>

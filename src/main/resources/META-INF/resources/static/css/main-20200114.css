@@ -18,6 +18,8 @@ body {
     padding: 0
 }
 
+/* base layout */
+
 header {
     overflow: hidden;
     width: 100%
@@ -47,43 +49,29 @@ header h2 {
     padding-bottom: 12px
 }
 
-div.columns {
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    display: -ms-flexbox;
+main {
+    max-width: 60ch;
+}
+
+div.container {
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    height: 100%;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    max-width: 1000px;
-    margin-right: auto;
-    margin-left: auto
+    /*max-width: 1000px;*/
+    gap: 16px;
+    justify-content: center;
 }
 
-div.columns div.column {
-    padding: 0 12px
+footer {
+    background-color: #e20020;
+    color: #fff;
+    min-height: 50px;
+    overflow: hidden;
+    padding-top: 12px;
+    text-align: center;
+    width: 100%
 }
 
-div.columns div.column.left {
-    -ms-flex: 5 0 300px;
-    flex: 5 0 300px
-}
-
-div.columns div.column.right {
-    -ms-flex: 1 4 170px;
-    flex: 1 4 170px
-}
-
-div.columns div.segment {
-    margin-bottom: 36px;
-    overflow: hidden
-}
-
-div.columns div.segment h2 {
-    margin: 0 0 12px
-}
+/* elements */
 
 a {
     font-weight: 700;
@@ -187,12 +175,6 @@ div.twitter-container {
     float: none
 }
 
-footer {
-    background-color: #e20020;
-    color: #fff;
-    min-height: 50px;
-    overflow: hidden;
-    padding-top: 12px;
-    text-align: center;
-    width: 100%
+summary {
+    margin-bottom: 12px;
 }
