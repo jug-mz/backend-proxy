@@ -4,16 +4,16 @@ const templateWithRsvp = `
                 <small>Partner Event</small>
             </span>
         {{/partnerEvent}}   
-        <hgroup class="event-header">
+        <hgroup class="event-header" id="{{id}}">
             <p>{{eventDate}} | {{venue}}</p>
             <h3>
-                {{#partnerEvent}}«{{eventGroupName}}» {{/partnerEvent}}{{name}} 
+                {{#partnerEvent}}«{{eventGroupName}}» {{/partnerEvent}}{{name}}  <a href="/#{{id}}">#</a>
             </h3>
         </hgroup>
         
         
         <p>
-           <a href="{{link}}" target="_blank">Teilnehmen (Meetup.com)</a>
+           <a href="{{link}}" target="_blank">Teilnehmen auf Meetup.com</a>
         </p>
              
         {{#rsvpLimit}}
@@ -34,10 +34,11 @@ const templateWithRsvp = `
         </details>
 `;
 
+
 const templateWithoutRsvp = `
-     <hgroup>
+     <hgroup id="{{id}}">
         <p>{{eventDate}} | {{venue}}</p>
-        <h3>{{name}}</h3>
+        <h3>{{name}} <a href="/#{{id}}">#</a></h3>
     </hgroup>
     
     <p>
@@ -75,6 +76,7 @@ const renderUpcoming = async () => {
             if (element.openRsvp < 1) {
                 element.eventFull = true;
             }
+            element.details = element.details.split('\\').join('')
             upcomingEvents.appendChild(renderWithTemplate(element, templateWithRsvp));
         });
     }

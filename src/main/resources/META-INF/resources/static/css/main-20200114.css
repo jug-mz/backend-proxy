@@ -177,6 +177,10 @@ a {
     color: #e20020;
 }
 
+h3 a {
+    text-decoration: none;
+}
+
 .event-list {
     list-style-type: none;
     padding: 0;
