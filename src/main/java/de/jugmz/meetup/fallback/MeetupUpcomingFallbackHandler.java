@@ -6,7 +6,7 @@ import de.jugmz.meetup.MeetupService;
 import org.eclipse.microprofile.faulttolerance.ExecutionContext;
 import org.eclipse.microprofile.faulttolerance.FallbackHandler;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
