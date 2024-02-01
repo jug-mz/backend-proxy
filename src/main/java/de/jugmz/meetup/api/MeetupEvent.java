@@ -1,6 +1,6 @@
 package de.jugmz.meetup.api;
 
-import javax.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
