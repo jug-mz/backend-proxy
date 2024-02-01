@@ -18,12 +18,7 @@ jobs:
         distribution: 'graalvm'
         cache: maven
     - name: Build with Maven
-      run: mvn clean package -Dnative
-    - name: Copy artifacts to target
-      run: |
-        cp target/backend-proxy-1.0-SNAPSHOT-runner target/dist/application
-        cp -R $GRAALVM_HOME/jre/lib/amd64 target/dist/lib
-        cp $GRAALVM_HOME/jre/lib/security/cacerts target/dist/cacerts
+      run: mvn clean package
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
