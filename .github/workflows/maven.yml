@@ -14,9 +14,11 @@ jobs:
     - name: Set up GraalVM 17
       uses: graalvm/setup-graalvm@v1
       with:
-        java-version: '20'
+        java-version: '21'
         distribution: 'graalvm'
         cache: maven
+    - name: Maybe install Graal
+      run: ./install-graalvm.sh
     - name: Build with Maven
       run: mvn -s settings.xml -q clean package -Pnative -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V
     - name: Copy artifacts to target
