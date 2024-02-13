@@ -75,6 +75,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>backend-proxy</finalName>
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>

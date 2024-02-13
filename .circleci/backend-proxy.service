@@ -1,0 +1,10 @@
+[Unit]
+Description=JUG Mainz backend proxy runner
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/backend-proxy/backend-proxy-runner
+
+[Install]
+WantedBy=multi-user.target
