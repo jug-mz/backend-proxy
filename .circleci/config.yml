@@ -1,0 +1,53 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: ghcr.io/graalvm/graalvm-community:21.0.2-ol9-20240116
+    resource_class: arm.large
+
+    steps:
+      - checkout
+      - run: | 
+          curl -O -k https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz && \
+          tar -xzf apache-maven-3.9.6-bin.tar.gz && chmod u+x apache-maven-3.9.6/bin/mvn
+      - restore_cache:
+          key: mvn-cache-{{ checksum "pom.xml" }}
+      - run:
+          name: build
+          command: apache-maven-3.9.6/bin/mvn package -Pnative
+      - persist_to_workspace:
+          root: target
+          paths:
+            - backend-proxy-runner
+      - save_cache:
+          key: mvn-cache-{{ checksum "pom.xml" }}
+          paths:
+            - ~/.m2
+
+  deploy:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:q+X8sR4um0Lo9ixlrhZHz9M55LrEusqIgT/kcUTYRQE"
+      - run: scp -o StrictHostKeyChecking=no .circleci/backend-proxy.service root@49.13.139.38:/lib/systemd/system/backend-proxy.service
+      - run: ssh -o StrictHostKeyChecking=no root@49.13.139.38 'mkdir -p /opt/backend-proxy'
+      - run: scp -o StrictHostKeyChecking=no target/backend-proxy-runner root@49.13.139.38:/opt/backend-proxy/backend-proxy-runner-new
+      - run: scp -o StrictHostKeyChecking=no .circleci/server-start.sh root@49.13.139.38:/opt/backend-proxy/server-start.sh
+      - run: ssh -o StrictHostKeyChecking=no root@49.13.139.38 'chmod u+x /opt/backend-proxy/server-start.sh && sh /opt/backend-proxy/server-start.sh'
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
