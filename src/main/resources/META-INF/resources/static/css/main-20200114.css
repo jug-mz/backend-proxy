@@ -14,6 +14,10 @@
         visibility: hidden;
         display: none
     }
+
+    .container {
+        align-items: start;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -100,6 +104,14 @@ hgroup > *:last-child {
     margin-top: 0;
 }
 
+hgroup#header-bar > p {
+    color: white;
+    font-size: 25.5px;
+    line-height: 33.15px;
+    font-weight: 500;
+    padding-bottom: 12px;
+}
+
 /* base layout */
 
 header {
@@ -161,13 +173,18 @@ footer {
     overflow: hidden;
     padding: 32px 12px;
     /*width: 100%;*/
-    margin-top: 24px;
+    margin-top: 48px;
     font-size: 15px;
 }
 
 footer>div, header>div {
     max-width: 1000px;
     margin: 0 auto;
+}
+
+hr {
+    border-width: 0.5px;
+    margin: 24px 0;
 }
 
 /* elements */
