@@ -35,21 +35,21 @@ public class MeetupMapper {
 
         EventDto dtoEvent = new EventDto();
 
-        dtoEvent.id = apiEvent.getId();
-        dtoEvent.name = apiEvent.getName();
+        dtoEvent.id = apiEvent.id();
+        dtoEvent.name = apiEvent.name();
 
-        if(apiEvent.getRsvpLimit().isPresent()) {
-            dtoEvent.rsvpLimit = apiEvent.getRsvpLimit().get();
-            dtoEvent.openRsvp = dtoEvent.rsvpLimit - apiEvent.getRsvpCount();
+        if(apiEvent.rsvpLimit() != null) {
+            dtoEvent.rsvpLimit = apiEvent.rsvpLimit();
+            dtoEvent.openRsvp = dtoEvent.rsvpLimit - apiEvent.rsvpCount();
         }
 
-        dtoEvent.status = apiEvent.getStatus();
+        dtoEvent.status = apiEvent.status();
         dtoEvent.eventDate = formatEventDate(apiEvent);
-        dtoEvent.venue = apiEvent.getVenue().map(MeetupEventVenue::getName).orElse(EMPTY_VENUE_STRING);
-        dtoEvent.link = apiEvent.getLink();
-        dtoEvent.iCalLink = createICalLink(apiEvent.getName(), apiEvent.getLink());
-        dtoEvent.details = apiEvent.getDescription();
-        dtoEvent.eventGroupName = apiEvent.getGroup().getName();
+        dtoEvent.venue = (apiEvent.venue() != null) ? apiEvent.venue().name() : EMPTY_VENUE_STRING;
+        dtoEvent.link = apiEvent.link();
+        dtoEvent.iCalLink = createICalLink(apiEvent.name(), apiEvent.link());
+        dtoEvent.details = apiEvent.description();
+        dtoEvent.eventGroupName = apiEvent.group().name();
         dtoEvent.isPartnerEvent = isPartnerEvent(apiEvent);
 
         return dtoEvent;
@@ -66,13 +66,13 @@ public class MeetupMapper {
     }
 
     private String formatEventDate(MeetupEvent event) {
-        String dateString = event.getLocalDate().format(DATE_FORMATTER);
-        String timeString = event.getLocalTime().format(TIME_FORMATTER);
+        String dateString = event.localDate().format(DATE_FORMATTER);
+        String timeString = event.localTime().format(TIME_FORMATTER);
         return String.format("%s, %s Uhr", dateString, timeString);
     }
 
     private boolean isPartnerEvent(MeetupEvent event) {
-        return !event.getGroup().getUrlname().equals(this.homeId);
+        return !event.group().urlname().equals(this.homeId);
     }
 
 }

@@ -87,8 +87,8 @@ public class MeetupService {
                 .map(groupId -> client.getEvents(groupId, MEETUP_STATUS_UPCOMING, false))
                 .flatMap(Collection::stream)
                 .sorted(Comparator
-                        .comparing(MeetupEvent::getLocalDate)
-                        .thenComparing(MeetupEvent::getLocalTime))
+                        .comparing(MeetupEvent::localDate)
+                        .thenComparing(MeetupEvent::localTime))
                 .collect(Collectors.toList());
     }
 

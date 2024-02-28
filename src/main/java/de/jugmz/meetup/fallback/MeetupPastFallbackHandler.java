@@ -1,6 +1,5 @@
 package de.jugmz.meetup.fallback;
 
-import de.jugmz.SimplestCache;
 import de.jugmz.meetup.EventDto;
 import de.jugmz.meetup.MeetupMapper;
 import de.jugmz.meetup.MeetupService;
