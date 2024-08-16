@@ -1,7 +1,9 @@
 package de.jugmz.meetup;
 
-import de.jugmz.meetup.fallback.MeetupPastFallbackHandler;
-import de.jugmz.meetup.fallback.MeetupUpcomingFallbackHandler;
+import de.jugmz.mobilizon.fallback.MobilizonPastFallbackHandler;
+import de.jugmz.mobilizon.fallback.MobilizonUpcomingFallbackHandler;
+import de.jugmz.mobilizon.MobilizonMapper;
+import de.jugmz.mobilizon.MobilizonService;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -15,21 +17,19 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.net.SocketException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/api/meetup")
 @Produces(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class MeetupController {
 
-    private MeetupService meetupService;
-
-    private MeetupMapper meetupMapper;
+    private final MobilizonService mobilizonService;
+    private final MobilizonMapper mobilizonMapper;
 
     @Inject
-    public MeetupController(MeetupService meetupService, MeetupMapper meetupMapper) {
-        this.meetupService = meetupService;
-        this.meetupMapper = meetupMapper;
+    public MeetupController(MobilizonService mobilizonService, MobilizonMapper mobilizonMapper) {
+        this.mobilizonService = mobilizonService;
+        this.mobilizonMapper = mobilizonMapper;
     }
 
     @GET
@@ -37,12 +37,13 @@ public class MeetupController {
     @Counted(name = "serviceCallsUpcoming")
     @Timeout(value = 1000L)
     @Retry(abortOn = SocketException.class)
-    @Fallback(value = MeetupUpcomingFallbackHandler.class)
+    @Fallback(value = MobilizonUpcomingFallbackHandler.class)
     public List<EventDto> getUpcoming() {
-        return meetupService.getUpcoming()
+
+        return mobilizonService.getUpcoming()
                 .stream()
-                .map(meetupMapper::toDto)
-                .collect(Collectors.toList());
+                .map(event -> mobilizonMapper.toDto(event, "JUG Mainz")) // FIXME
+                .toList();
     }
 
     @GET
@@ -50,11 +51,11 @@ public class MeetupController {
     @Counted(name = "serviceCallsPast")
     @Timeout(value = 1000L)
     @Retry(abortOn = SocketException.class)
-    @Fallback(value = MeetupPastFallbackHandler.class)
+    @Fallback(value = MobilizonPastFallbackHandler.class)
     public List<EventDto> getPast() {
-        return meetupService.getPast()
+        return mobilizonService.getPast()
                 .stream()
-                .map(meetupMapper::toDto)
-                .collect(Collectors.toList());
+                .map(event -> mobilizonMapper.toDto(event, "JUG Mainz")) // FIXME
+                .toList();
     }
 }
