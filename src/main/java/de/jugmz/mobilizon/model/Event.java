@@ -6,7 +6,7 @@ public record Event(String id,
                     String title,
                     String slug,
                     String description,
-                    LocalDateTime beginsOn,
+                    String beginsOn,
                     Address physicalAddress,
                     String url) {
 }

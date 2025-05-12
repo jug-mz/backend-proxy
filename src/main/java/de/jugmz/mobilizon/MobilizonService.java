@@ -2,7 +2,7 @@ package de.jugmz.mobilizon;
 
 import de.jugmz.SimplestCache;
 import de.jugmz.mobilizon.model.Event;
-import de.jugmz.mobilizon.model.OrgainizedEvent;
+import de.jugmz.mobilizon.model.OrganizedEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -68,10 +68,8 @@ public class MobilizonService {
     private List<Event> requestAllUpcomingEvents(String homeId) {
 
         try {
-            return client.group(homeId).organizedEvents()
+            return client.group(homeId).organizedEvents().elements()
                     .stream()
-                    .map(OrgainizedEvent::elements)
-                    .flatMap(Collection::stream)
                     .sorted(Comparator.comparing(Event::beginsOn))
                     .toList();
         } catch (Exception e) {

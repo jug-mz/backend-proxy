@@ -16,7 +16,12 @@ public class MobilizonMapper {
         String name = apiEvent.title();
         String status = ""; //TBD
         String eventDate = apiEvent.beginsOn().toString();
-        String venue = apiEvent.physicalAddress().description();
+        String venue;
+        if(null != apiEvent.physicalAddress()) {
+            venue = apiEvent.physicalAddress().description();
+        } else {
+            venue = "TBD";
+        }
         String link = apiEvent.url();
         String iCalLink = null;
         String details = apiEvent.description();
