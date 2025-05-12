@@ -10,10 +10,9 @@ const templateWithRsvp = `
                 {{#partnerEvent}}«{{eventGroupName}}» {{/partnerEvent}}{{name}}  <a href="/#{{id}}">#</a>
             </h3>
         </hgroup>
-        
-        
+             
         <p>
-           <a href="{{link}}" target="_blank">Teilnehmen auf Meetup.com</a>
+           <a href="{{link}}" target="_blank">Teilnehmen auf Mobilizon</a>
         </p>
              
         {{#rsvpLimit}}
@@ -41,10 +40,11 @@ const templateWithoutRsvp = `
         <h3>{{name}} <a href="/#{{id}}">#</a></h3>
     </hgroup>
     
-    <p>
-       <a href="{{link}}" target="_blank">Event auf Meetup.com</a>
-    </p>
-    
+        <p>
+           <a href="{{link}}" target="_blank">Teilnehmen auf Mobilizon</a>
+        </p>
+        
+         <p><a id="ical-link" href="{{iCalLink}}">Termin speichern</a></p>
     <details>
         <summary>Details</summary>
         <div>

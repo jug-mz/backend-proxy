@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,7 +45,7 @@ public class MobilizonService {
         this.partnerIds = partnerIds.map(val -> val.split(",")).orElse(new String[0]);
         this.client = mobilizonClient;
         this.upcomingCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> this.requestAllUpcomingEvents(homeId));
-        this.pastCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> this.requestAllUpcomingEvents(homeId)); //TODO past events
+        this.pastCache = new SimplestCache<>(CACHE_DURATION_IN_SECONDS, () -> this.requestAllPastEvents(homeId));
     }
 
     public List<Event> getUpcoming() {
@@ -70,6 +71,22 @@ public class MobilizonService {
         try {
             return client.group(homeId).organizedEvents().elements()
                     .stream()
+                    .filter(event -> event.beginsOn().isAfter(ZonedDateTime.now()))
+                    .sorted(Comparator.comparing(Event::beginsOn))
+                    .toList();
+        } catch (Exception e) {
+            log.error("Upsi", e);
+            throw e;
+        }
+
+    }
+
+    private List<Event> requestAllPastEvents(String homeId) {
+
+        try {
+            return client.group(homeId).organizedEvents().elements()
+                    .stream()
+                    .filter(event -> event.beginsOn().isBefore(ZonedDateTime.now()))
                     .sorted(Comparator.comparing(Event::beginsOn))
                     .toList();
         } catch (Exception e) {
