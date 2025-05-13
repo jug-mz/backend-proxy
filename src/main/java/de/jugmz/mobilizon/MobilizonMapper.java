@@ -22,7 +22,7 @@ public class MobilizonMapper {
         String status = ""; //TBD
         String eventDate = apiEvent.beginsOn()
                 .withZoneSameInstant(ZoneId.of("Europe/Berlin"))
-                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                         .withLocale(Locale.GERMAN));
         String venue;
         if(null != apiEvent.physicalAddress()) {
