@@ -5,9 +5,9 @@ import de.jugmz.mobilizon.model.Event;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Locale;
 
 /**
  * Mapper for transforming Meetup API objects into DTO for our web application.
@@ -22,7 +22,8 @@ public class MobilizonMapper {
         String status = ""; //TBD
         String eventDate = apiEvent.beginsOn()
                 .withZoneSameInstant(ZoneId.of("Europe/Berlin"))
-                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                        .withLocale(Locale.GERMAN));
         String venue;
         if(null != apiEvent.physicalAddress()) {
             venue = apiEvent.physicalAddress().description();
