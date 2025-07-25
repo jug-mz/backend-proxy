@@ -9,13 +9,13 @@ jobs:
     steps:
       - checkout
       - run: | 
-          curl -O -k https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz && \
-          tar -xzf apache-maven-3.9.6-bin.tar.gz && chmod u+x apache-maven-3.9.6/bin/mvn
+          curl -O -k https://downloads.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz && \
+          tar -xzf apache-maven-3.9.11-bin.tar.gz && chmod u+x apache-maven-3.9.11/bin/mvn
       - restore_cache:
           key: mvn-cache-{{ checksum "pom.xml" }}
       - run:
           name: build
-          command: apache-maven-3.9.6/bin/mvn package -Pnative
+          command: apache-maven-3.9.11/bin/mvn package -Pnative
       - persist_to_workspace:
           root: target
           paths:
