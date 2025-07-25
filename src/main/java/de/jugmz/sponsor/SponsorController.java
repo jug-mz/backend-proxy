@@ -32,7 +32,7 @@ public class SponsorController {
 
     private Stream<SponsorDto> buildSponsors() {
         return Stream.of(
-                new SponsorDto("ilume", "ilum:e informatik ag", "https://www.ilume.de", "ilume.png"),
+                new SponsorDto("ilume", "ilum:e informatik ag", "https://www.ilume.de", "ilume.svg"),
                 new SponsorDto("qaware", "QAware", "https://www.qaware.de", "qaware.svg"),
                 new SponsorDto("lambdaschmiede", "lambdaschmiede GmbH", "https://www.lambdaschmiede.com", "lambdaschmiede.svg"));
     }
